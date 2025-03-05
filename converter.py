@@ -1,5 +1,6 @@
 import streamlit as st
-#Func
+
+# Distance Converter Function
 def distance_convertor(from_unit, to_unit, value):
     units = {
         "Meters": 1,
@@ -9,18 +10,20 @@ def distance_convertor(from_unit, to_unit, value):
     }
     result = value * units[from_unit] / units[to_unit]
     return result
-#Temperature Convertor Function
-def temperature_convertor(from_unit,to_unit,value): 
-    if from_unit == "Celsius" and to_unit == "Fahrenheit" :
-        result = (value * 9/5)  + 32
-    elif from_unit == "Farenheit" and to_unit == "Celsius":
-            result = (value - 32) * 5/9
-    else:
-     result = value
-     return result
 
-     def Weight_convertor(from_unit, to_unit, value):
-      units = {
+# Temperature Converter Function
+def temperature_convertor(from_unit, to_unit, value): 
+    if from_unit == "Celsius" and to_unit == "Fahrenheit":
+        result = (value * 9/5) + 32
+    elif from_unit == "Fahrenheit" and to_unit == "Celsius":
+        result = (value - 32) * 5/9
+    else:
+        result = value
+    return result  # Fixed indentation
+
+# Weight Converter Function
+def weight_convertor(from_unit, to_unit, value):
+    units = {
         "Kilograms": 1,
         "Grams": 0.001,
         "Pounds": 0.453592,
@@ -29,51 +32,51 @@ def temperature_convertor(from_unit,to_unit,value):
     result = value * units[from_unit] / units[to_unit]
     return result
 
-    def pressure_convertor(from_unit, to_unit, value):
-      units = {
-        "pascals": 1,
-        "Hectopascals": 0.001,
-        "Kilopascals": 0.453592,
-        "Bar": 0.0283495,
+# Pressure Converter Function
+def pressure_convertor(from_unit, to_unit, value):
+    units = {
+        "Pascals": 1,
+        "Hectopascals": 100,
+        "Kilopascals": 1000,
+        "Bar": 100000,
     }
     result = value * units[from_unit] / units[to_unit]
     return result
 
-  # UI
-st.title(" unit Converter")
-#select Category
-category = st.selectbox("Select Category ", ["Distance", "Temperature", "Weight","Pressure"])
+# UI
+st.title("Unit Converter")
+
+# Select Category
+category = st.selectbox("Select Category", ["Distance", "Temperature", "Weight", "Pressure"])
 
 if category == "Distance":
     from_unit = st.selectbox("From", ["Meters", "Kilometers", "Feet", "Miles"])
     to_unit = st.selectbox("To", ["Meters", "Kilometers", "Feet", "Miles"])
-    value = st.number_input("Enter Value")
+    value = st.number_input("Enter Value", min_value=0.0, format="%.2f")
     if st.button("Convert"):
-     result = distance_convertor(from_unit, to_unit, value )
-     st.success(f"{value} {from_unit} = {result:2f} {to_unit}")
+        result = distance_convertor(from_unit, to_unit, value)
+        st.success(f"{value} {from_unit} = {result:.2f} {to_unit}")
 
-elif category == "Temprature" :
-    from_unit = st.selectbox ("From", ["Celsius", "Fahrenheit"])
+elif category == "Temperature":
+    from_unit = st.selectbox("From", ["Celsius", "Fahrenheit"])
     to_unit = st.selectbox("To", ["Celsius", "Fahrenheit"])
-    value = st.number_input("Enter Value")
+    value = st.number_input("Enter Value", format="%.2f")
     if st.button("Convert"):
-     result = temprature_convertor(from_unit, to_unit, value )
-     st.success(f"{value} {from_unit} = {result:2f} {to_unit}")
+        result = temperature_convertor(from_unit, to_unit, value)
+        st.success(f"{value} {from_unit} = {result:.2f} {to_unit}")
 
-elif category == "Weight" :
-    from_unit = st.selectbox ("From", ["Kilograms", "Grams", "Pounds", "Ounces"])
+elif category == "Weight":
+    from_unit = st.selectbox("From", ["Kilograms", "Grams", "Pounds", "Ounces"])
     to_unit = st.selectbox("To", ["Kilograms", "Grams", "Pounds", "Ounces"])
-    value = st.number_input("Enter Value")
+    value = st.number_input("Enter Value", min_value=0.0, format="%.2f")
     if st.button("Convert"):
-     result = temprature_convertor(from_unit, to_unit, value )
-     st.success(f"{value} {from_unit} = {result:2f} {to_unit}")
+        result = weight_convertor(from_unit, to_unit, value)
+        st.success(f"{value} {from_unit} = {result:.2f} {to_unit}")
 
-elif category == "Pressure" :
-    from_unit = st.selectbox ("From", ["Pascals", "Hectopascals", "Kilopascals", "Bar"])
+elif category == "Pressure":
+    from_unit = st.selectbox("From", ["Pascals", "Hectopascals", "Kilopascals", "Bar"])
     to_unit = st.selectbox("To", ["Pascals", "Hectopascals", "Kilopascals", "Bar"])
-    value = st.number_input("Enter Value")
+    value = st.number_input("Enter Value", min_value=0.0, format="%.2f")
     if st.button("Convert"):
-     result = pressure_convertor(from_unit, to_unit, value )
-     st.success(f"{value} {from_unit} = {result:2f} {to_unit}")
-
-
+        result = pressure_convertor(from_unit, to_unit, value)
+        st.success(f"{value} {from_unit} = {result:.2f} {to_unit}")
